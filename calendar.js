@@ -1,4 +1,3 @@
-
         let startRangeDate = null,
             endRangeDate = null,
             skipRange = false,
@@ -11,8 +10,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-          window.picker = new Litepicker({
+            window.picker = new Litepicker({
             element: document.getElementById('date-info'),
+            plugins: ['mobilefriendly'],
             lang: "pl-PL",
             format: "DD.MM.YYYY",
             // set locked date: 24*60*60*1000*2
@@ -30,6 +30,9 @@
             autoApply: true,
             numberOfMonths: 2,
             numberOfColumns: 2,
+            mobilefriendly: {
+                breakpoint: 480,
+              },
             tooltipText: {
                 "one":"dzień",
                 "few":"dni",
