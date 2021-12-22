@@ -1,5 +1,5 @@
 
-let startRangeDate = null,
+        let startRangeDate = null,
             endRangeDate = null,
             skipRange = false,
             oldDays = 0;
@@ -84,7 +84,7 @@ let startRangeDate = null,
             setTimeout(function() {
                 if(document.querySelector("#weeknds").checked) {
                     // weekendy dostepne
-                    console.log('weekendy dostepne');
+                    console.log('weekendy dostępne');
 
                     // // uaktualni zaznaczenie jesli okreslona liczba dni diety
                     // if ((days > 0) && startRangeDate) {
@@ -270,7 +270,7 @@ let startRangeDate = null,
             if (weekends) {
                 displayInfo += ' (z weekendami)';
             } else {
-                displayInfo += ' (bez weekendow)';
+                displayInfo += ' (bez weekendów)';
             }
             document.getElementById('date').value = displayInfo;
         }
@@ -320,7 +320,7 @@ let startRangeDate = null,
             }
             console.log(currentDate_day, currentDate_month, currentDate_year, currentDate_dow);
             if (currentDate_dow == 0 || currentDate_dow == 6) {
-                alert('Nieprawidowa data poniewaz koniec diety przypada w weekend. Wybierz inna date poczatkowa lub liczbe dni diety, lub odblokuj weekendy.');
+                alert('Nieprawidłowa data ponieważ koniec diety przypada w weekend. Wybierz inną datę początkową lub liczbę dni diety, lub odblokuj weekendy.');
                 // window.picker.clearSelection();
                 return false;
             }
