@@ -32,6 +32,8 @@
             numberOfColumns: 2,
             mobilefriendly: {
                 breakpoint: 480,
+                numberOfMonths: 2,
+                numberOfColumns: 1,
               },
             tooltipText: {
                 "one":"dzień",
