@@ -1,7 +1,8 @@
         let startRangeDate = null,
             endRangeDate = null,
             skipRange = false,
-            oldDays = 0;
+            oldDays = 0,
+            defaultDays = 0;
 
         Date.prototype.addDays = function(days) {
             var date = new Date(this.valueOf());
@@ -19,6 +20,8 @@
             minDate: (new Date().getTime() + 259200000),
             startDate: (new Date().getTime() + 259200000),
             endDate: (new Date().getTime() + 259200000),
+            minDays: defaultDays,
+            maxDays: defaultDays,
             selectBackward: false,
             selectForward: true,
             inlineMode: true,
@@ -42,9 +45,14 @@
                 "other":"dni"
             },
             lockDaysFilter: (date1, date2, pickedDates) => {
-                return lockDaysWithRange(date1, date2, pickedDates)
+                if (defaultDays == 0) {
+                    return true;
+                } else {
+                    return lockDaysWithRange(date1, date2, pickedDates);
+                }
             },
             setup: (picker) => {
+                document.getElementById('days').value = defaultDays;
                 // picker.on('before:click', (target) => {
                 //     picker.preventClick = true;
                 //     // some action
@@ -55,13 +63,14 @@
                     const weekends = document.getElementById('weeknds').checked;
                     const days = parseInt(document.getElementById('days').value);
                     if (!date2 && date1 && (days != 0) && !weekends) {
+                        calculateRangeInfo(date1, date2);
                         // checkRangeIfValid(date1, days);
-                        if (!checkRangeIfValid(date1, days) && startRangeDate) {
-                            calculateRangeSelect(startRangeDate, endRangeDate);
-                            return;
-                    //     } else {
+                    //     if (!checkRangeIfValid(date1, days) && startRangeDate) {
+                    //         calculateRangeSelect(startRangeDate, endRangeDate);
+                    //         return;
+                    // //     } else {
 
-                        }
+                    //     }
                     }
                     // startRangeDate = date1;
                     // if (date2) {
@@ -81,10 +90,38 @@
             },
           });
 
-          document.querySelector('#weeknds').addEventListener('change', function() {
+          document.querySelector('#weeknds').addEventListener('change', function(e) {
+            updateWeekends(e);
+          });
 
+        //   document.querySelector('#days').addEventListener('keyup', function(e) {
+        //     updateDays(e);
+        //   });
+          document.querySelector('#days').addEventListener('change', function(e) {
+            updateDays(e);
+          });
+
+          document.querySelector('#reset').addEventListener('click', function(e) {
+            setTimeout(function() {
+                    startRangeDate = null;
+                    endRangeDate = null;
+                    window.picker.clearSelection();
+                    document.getElementById('date').value = '';
+                    document.getElementById('weeknds').checked = false;
+                    document.getElementById('days').value = defaultDays;
+                    window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
+            }, 10);
+          });
+
+        });
+
+        function updateWeekends(e) {
             const weekends = document.getElementById('weeknds').checked;
             const days = parseInt(document.getElementById('days').value);
+
+            if (!days) {
+                return;
+            }
 
             setTimeout(function() {
                 if(document.querySelector("#weeknds").checked) {
@@ -127,34 +164,16 @@
                 // window.picker.clearSelection();
                 // document.getElementById('index-demo-selection-view').value = '';
             }, 10);
-          });
-
-        //   document.querySelector('#days').addEventListener('keyup', function(e) {
-        //     updateDays(e);
-        //   });
-          document.querySelector('#days').addEventListener('change', function(e) {
-            updateDays(e);
-          });
-
-          document.querySelector('#reset').addEventListener('click', function(e) {
-            setTimeout(function() {
-                    startRangeDate = null;
-                    endRangeDate = null;
-                    window.picker.clearSelection();
-                    document.getElementById('date').value = '';
-                    document.getElementById('weeknds').checked = false;
-                    document.getElementById('days').value = 0;
-                    window.picker.setOptions({minDays: 1, maxDays: 365});
-            }, 10);
-          });
-
-        });
+        }
 
         function updateDays(e) {
             setTimeout(function() {
                 const val = parseInt(e.target.value);
                 console.log('val', val);
                 if (val > 0) {
+
+                    updateWeekends(e);
+
                     const weekends = document.getElementById('weeknds').checked;
                     const days = parseInt(document.getElementById('days').value);
                     // const rangeValid = checkRangeIfValid(startRangeDate, days);
@@ -188,8 +207,8 @@
                     }
                 } else {
                     window.picker.setOptions({
-                        minDays: 1,
-                        maxDays: 365,
+                        minDays: defaultDays,
+                        maxDays: defaultDays,
                     });
                 }
             }, 10);
@@ -239,6 +258,10 @@
             const date1_year = date1.getFullYear();
             const date1_dow = date1.getDay();
             console.log(date1_day, date1_month, date1_year, date1_dow);
+
+            if (!date2) {
+                date2 = new Date(date1_year, date1_month, date1_day).addDays(days-1);
+            }
 
             const date2_day = date2.getDate();
             const date2_month = date2.getMonth();
