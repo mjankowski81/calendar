@@ -53,38 +53,16 @@
             },
             setup: (picker) => {
                 document.getElementById('days').value = defaultDays;
-                // picker.on('before:click', (target) => {
-                //     picker.preventClick = true;
-                //     // some action
-                // }),
                 picker.on('preselect', (date1, date2) => {
                     console.log('preselect');
-                    // return;
                     const weekends = document.getElementById('weeknds').checked;
                     const days = parseInt(document.getElementById('days').value);
                     if (!date2 && date1 && (days != 0) && !weekends) {
                         calculateRangeInfo(date1, date2);
-                        // checkRangeIfValid(date1, days);
-                    //     if (!checkRangeIfValid(date1, days) && startRangeDate) {
-                    //         calculateRangeSelect(startRangeDate, endRangeDate);
-                    //         return;
-                    // //     } else {
-
-                    //     }
                     }
-                    // startRangeDate = date1;
-                    // if (date2) {
-                    //     endRangeDate = date2;
-                    // }
                 }),
                 picker.on('selected', (date1, date2) => {
                     console.log('selected');
-                    // return;
-                    // let displayInfo = document.getElementById('index-demo-selection').value;
-                    // let daysCount = 0;
-                    // const weekends = document.getElementById('weeknds').checked;
-                    // console.log(weekends);
-
                     calculateRangeInfo(date1, date2);
                 });
             },
@@ -94,65 +72,58 @@
             updateWeekends(e);
           });
 
-        //   document.querySelector('#days').addEventListener('keyup', function(e) {
-        //     updateDays(e);
-        //   });
           document.querySelector('#days').addEventListener('change', function(e) {
             updateDays(e);
           });
 
           document.querySelector('#reset').addEventListener('click', function(e) {
-            setTimeout(function() {
-                    startRangeDate = null;
-                    endRangeDate = null;
-                    window.picker.clearSelection();
-                    document.getElementById('date').value = '';
-                    document.getElementById('weeknds').checked = false;
-                    document.getElementById('days').value = defaultDays;
-                    window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
-            }, 10);
+            resetCalendar(e);
           });
 
         });
 
+        function resetCalendar(e) {
+            setTimeout(function() {
+                startRangeDate = null;
+                endRangeDate = null;
+                window.picker.clearSelection();
+                document.getElementById('date').value = '';
+                document.getElementById('weeknds').checked = false;
+                document.getElementById('days').value = defaultDays;
+                window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
+                updateWeekends(e);
+            }, 10);
+        }
+
         function updateWeekends(e) {
             const weekends = document.getElementById('weeknds').checked;
             const days = parseInt(document.getElementById('days').value);
-
-            if (!days) {
-                return;
-            }
 
             setTimeout(function() {
                 if(document.querySelector("#weeknds").checked) {
                     // weekendy dostepne
                     console.log('weekendy dostępne');
 
-                    // // uaktualni zaznaczenie jesli okreslona liczba dni diety
-                    // if ((days > 0) && startRangeDate) {
-                    //     console.log('weekendy dostepne - days > 0');
-                    //     calculateRangeInfo(startRangeDate, startRangeDate.dateInstance.addDays(days-1));
-                    // }
-
                     // zmien opje kalendarza
                     window.picker.setOptions({
-                        lockDaysFilter:(day) => {}
+                        lockDaysFilter:(day) => {
+                            if (days == 0) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     });
 
-
                 } else {
-                    // window.picker.clearSelection();
-
-                    // if (!checkRangeIfValid(startRangeDate, days)) {
-                        // alert('Nieprawidowa data poniewaz koniec diety przypada w weekend. Wybierz inna date poczatkowa lub liczbe dni diety, lub odblokuj weekendy.');
-
-                        // document.querySelector("#weeknds").checked = true;
-                        // return;
-                    // }
 
                     window.picker.setOptions({
                         lockDaysFilter: (date1, date2, pickedDates) => {
-                            return lockDaysWithRange(date1, date2, pickedDates)
+                            if (days == 0) {
+                                return true;
+                            } else {
+                                return lockDaysWithRange(date1, date2, pickedDates)
+                            }
                         }
                     });
                 }
@@ -161,47 +132,23 @@
                 } else if (startRangeDate && endRangeDate) {
                     calculateRangeInfo(startRangeDate, endRangeDate);
                 }
-                // window.picker.clearSelection();
-                // document.getElementById('index-demo-selection-view').value = '';
             }, 10);
         }
 
         function updateDays(e) {
+            const days = parseInt(document.getElementById('days').value);
+
             setTimeout(function() {
                 const val = parseInt(e.target.value);
                 console.log('val', val);
                 if (val > 0) {
-
-                    updateWeekends(e);
-
-                    const weekends = document.getElementById('weeknds').checked;
-                    const days = parseInt(document.getElementById('days').value);
-                    // const rangeValid = checkRangeIfValid(startRangeDate, days);
-                    // if ((!weekends && startRangeDate && rangeValid) || (weekends && startRangeDate)) {
-                    // if ((!weekends && startRangeDate) || (weekends && startRangeDate)) {
                         window.picker.setOptions({
                             minDays: val,
                             maxDays: val,
                         });
-                        // calculateRangeSelect(startRangeDate, startRangeDate.dateInstance.addDays(days-1));
                         if (startRangeDate) {
                             calculateRangeInfo(startRangeDate, startRangeDate.dateInstance.addDays(days-1));
                         }
-                    // } else {
-                    //     window.picker.setOptions({
-                    //         minDays: val,
-                    //         maxDays: val,
-                    //     });
-                    //     if (startRangeDate && endRangeDate) {
-                    //         // calculateRangeSelect(startRangeDate, endRangeDate);
-                    //         calculateRangeInfo(startRangeDate, endRangeDate);
-                    //     }
-                    // }
-                    // if (!rangeValid) {
-                    //     document.getElementById('days').value = oldDays;
-                    // } else {
-                    //     oldDays = val;
-                    // }
                     if (!startRangeDate) {
                         window.picker.clearSelection();
                     }
@@ -211,7 +158,8 @@
                         maxDays: defaultDays,
                     });
                 }
-            }, 10);
+                updateWeekends(e);
+            }, 100);
         }
 
         function lockDaysWithRange(date1, date2, pickedDates) {
@@ -294,63 +242,15 @@
             // calculateRangeInfo(startRangeDate, endRangeDate);
             console.log('daysCount: ', daysCount);
             displayInfo = document.getElementById('date-info').value;
-            displayInfo += ', Liczba Dni: '+daysCount;
-            if (weekends) {
-                displayInfo += ' (z weekendami)';
+            if (!displayInfo) {
+                document.getElementById('date').value = displayInfo;
             } else {
-                displayInfo += ' (bez weekendów)';
+                displayInfo += ', Liczba Dni: '+daysCount;
+                if (weekends) {
+                    displayInfo += ' (z weekendami)';
+                } else {
+                    displayInfo += ' (bez weekendów)';
+                }
+                document.getElementById('date').value = displayInfo;
             }
-            document.getElementById('date').value = displayInfo;
-        }
-
-        function checkRangeIfValid(date1, days) {
-
-            if (!date1) {
-                return true;
-            }
-
-            const weekends = document.getElementById('weeknds').checked;
-            if (weekends) {
-                return true;
-            }
-
-            console.log(days);
-            const date1_day = date1.getDate();
-            const date1_month = date1.getMonth();
-            const date1_year = date1.getFullYear();
-            const date1_dow = date1.getDay();
-            // console.log(date1_day, date1_month, date1_year, date1_dow);
-
-            let date2 = date1;
-            date2 = date2.dateInstance.addDays(days);
-            console.log(date2);
-            const date2_day = date2.getDate();
-            const date2_month = date2.getMonth();
-            const date2_year = date2.getFullYear();
-            const date2_dow = date2.getDay();
-            console.log(date2_day, date2_month, date2_year, date2_dow);
-
-            const startLoopDate = new Date(date1_year, date1_month, date1_day);
-            const endLoopDate = new Date(date2_year, date2_month, date2_day);
-
-            let currentDate,
-                currentDate_day,
-                currentDate_month,
-                currentDate_year,
-                currentDate_dow;
-
-            for (var d = startLoopDate; d < endLoopDate; d.setDate(d.getDate() + 1)) {
-                currentDate = new Date(d);
-                currentDate_day = currentDate.getDate();
-                currentDate_month = currentDate.getMonth();
-                currentDate_year = currentDate.getFullYear();
-                currentDate_dow = currentDate.getDay();
-            }
-            console.log(currentDate_day, currentDate_month, currentDate_year, currentDate_dow);
-            if (currentDate_dow == 0 || currentDate_dow == 6) {
-                alert('Nieprawidłowa data ponieważ koniec diety przypada w weekend. Wybierz inną datę początkową lub liczbę dni diety, lub odblokuj weekendy.');
-                // window.picker.clearSelection();
-                return false;
-            }
-            return true;
         }
