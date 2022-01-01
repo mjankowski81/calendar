@@ -27,7 +27,7 @@
             inlineMode: true,
             allowRepick: true,
             autoRefresh: false,
-            showTooltip: false,
+            showTooltip: true,
             singleMode: false,
             disallowLockDaysInRange: false,
             autoApply: true,
@@ -37,6 +37,7 @@
                 breakpoint: 480,
                 numberOfMonths: 1,
                 numberOfColumns: 1,
+                singleMode: true
               },
             tooltipText: {
                 "one":"dzień",
