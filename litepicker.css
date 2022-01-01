@@ -23,7 +23,7 @@
     --litepicker-month-width:  calc(var(--litepicker-day-width) * 7);
     --litepicker-month-weekday-color:  #9e9e9e;
     --litepicker-month-week-number-color:  #9e9e9e;
-    --litepicker-day-width:  46px;
+    --litepicker-day-width:  38px;
     --litepicker-day-color:  #333;
     --litepicker-day-color-hover:  #9FCB22;
     --litepicker-is-today-color:  #fa541c;
