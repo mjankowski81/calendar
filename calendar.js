@@ -93,6 +93,7 @@
                 document.getElementById('days').value = defaultDays;
                 window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
                 updateWeekends(e);
+                $('input[name="days"]').trigger('input');
             }, 10);
         }
 
