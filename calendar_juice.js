@@ -85,7 +85,7 @@
                 window.picker.clearSelection();
                 document.getElementById('date').value = '';
                 document.getElementById('days').value = defaultDays;
-                document.querySelectorAll('[name="dayNumber"]')[0].checked = true;
+                document.querySelectorAll('[name="juice"]')[0].checked = true;
                 window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
                 // $('input[name="days"]').trigger('input');
             }, 10);
