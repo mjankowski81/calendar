@@ -87,7 +87,7 @@
                 document.getElementById('days').value = defaultDays;
                 document.querySelectorAll('[name="juice"]')[0].checked = true;
                 window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
-                $('.calories-radio-wrapper .radio-button-juice.w-radio').eq(0).click();
+                $('.calories-radio-wrapper .radio-button-juice.w-radio.w--redirected-checked').eq(0).click();
                 // $('input[name="days"]').trigger('input');
             }, 10);
         }
