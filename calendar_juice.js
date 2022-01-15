@@ -202,8 +202,8 @@
             if (!displayInfo) {
                 document.getElementById('date').value = displayInfo;
             } else {
-                displayInfo += ', Liczba Dni: '+daysCount;
-                displayInfo += ' (bez weekendów)';
+                displayInfo += ', days: '+daysCount;
+                displayInfo += ' (no weekends)';
                 document.getElementById('date').value = displayInfo;
             }
         }

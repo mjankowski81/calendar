@@ -247,11 +247,11 @@
             if (!displayInfo) {
                 document.getElementById('date').value = displayInfo;
             } else {
-                displayInfo += ', Liczba Dni: '+daysCount;
+                displayInfo += ', days: '+daysCount;
                 if (weekends) {
-                    displayInfo += ' (z weekendami)';
+                    displayInfo += ' (weekends)';
                 } else {
-                    displayInfo += ' (bez weekendów)';
+                    displayInfo += ' (no weekends)';
                 }
                 document.getElementById('date').value = displayInfo;
             }
