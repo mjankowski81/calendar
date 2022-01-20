@@ -54,11 +54,12 @@
             },
             setup: (picker) => {
                 document.getElementById('days').value = defaultDays;
-                picker.on('preselect', (date1, date2) => {
-                    console.log('preselect');
+                    picker.on('preselect', (date1, date2) => {
+                    console.log('preselect 2');
                     const weekends = document.getElementById('weeknds').checked;
                     const days = parseInt(document.getElementById('days').value);
-                    if (!date2 && date1 && (days != 0) && !weekends) {
+                    // if (!date2 && date1 && (days != 0) && !weekends) {
+                    if (!date2 && date1 && (days != 0)) {
                         calculateRangeInfo(date1, date2);
                     }
                 }),
