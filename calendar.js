@@ -93,7 +93,6 @@
                 document.getElementById('weeknds').checked = false;
                 document.getElementById('days').value = defaultDays;
                 document.querySelector('input[name="price"]').value = 0;
-                day_count = 0;
                 window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
                 updateWeekends(e);
                 $('input[name="days"]').trigger('input');
