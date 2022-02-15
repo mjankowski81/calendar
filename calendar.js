@@ -56,6 +56,11 @@
                 document.getElementById('days').value = defaultDays;
                     picker.on('preselect', (date1, date2) => {
                     console.log('preselect 2');
+                    if (date1.getDay() == 0)
+                    {
+                    picker.clearSelection();
+                    return false;
+                    }
                     const weekends = document.getElementById('weeknds').checked;
                     const days = parseInt(document.getElementById('days').value);
                     // if (!date2 && date1 && (days != 0) && !weekends) {
@@ -72,6 +77,10 @@
 
           document.querySelector('#weeknds').addEventListener('change', function(e) {
             updateWeekends(e);
+          });
+
+          document.querySelector('#days').addEventListener('change', function(e) {
+            updateDays(e);
           });
 
           document.querySelector('#days').addEventListener('keyup', function(e) {
