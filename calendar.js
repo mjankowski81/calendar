@@ -74,7 +74,7 @@
             updateWeekends(e);
           });
 
-          document.querySelector('#days').addEventListener('change', function(e) {
+          document.querySelector('#days').addEventListener('keyup', function(e) {
             updateDays(e);
           });
 
@@ -90,7 +90,7 @@
                 endRangeDate = null;
                 window.picker.clearSelection();
                 document.getElementById('date').value = '';
-                document.getElementById('weeknds').checked = false;
+                //document.getElementById('weeknds').checked = false;
                 document.getElementById('days').value = defaultDays;
                 document.querySelector('input[name="price"]').value = 0;
                 window.picker.setOptions({minDays: defaultDays, maxDays: defaultDays});
