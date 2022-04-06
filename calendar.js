@@ -108,7 +108,7 @@
             }, 10);
         }
 
-        function updateWeekends(e) {
+       /* function updateWeekends(e) {
             const weekends = document.getElementById('weeknds').checked;
             const days = parseInt(document.getElementById('days').value);
 
@@ -124,6 +124,53 @@
                                 return true;
                             } else {
                                 return false;
+                            }
+                        }
+                    });
+
+                } else {
+
+                    window.picker.setOptions({
+                        lockDaysFilter: (date1, date2, pickedDates) => {
+                            if (days == 0) {
+                                return true;
+                            } else {
+                                return lockDaysWithRange(date1, date2, pickedDates)
+                            }
+                        }
+                    });
+                }
+                if ((days > 0) && startRangeDate) {
+                    calculateRangeInfo(startRangeDate, startRangeDate.dateInstance.addDays(days-1));
+                } else if (startRangeDate && endRangeDate) {
+                    calculateRangeInfo(startRangeDate, endRangeDate);
+                }
+            }, 10);
+        } */
+
+        function updateWeekends(e) {
+            const weekends = document.getElementById('weeknds').checked;
+            const days = parseInt(document.getElementById('days').value);
+
+            setTimeout(function() {
+                if(document.querySelector("#weeknds").checked) {
+                    // weekendy dostepne
+                    console.log('weekendy dostępne');
+
+                    // zmien opje kalendarza
+                    window.picker.setOptions({
+                        lockDaysFilter:(date1) => {
+                            console.log('date1: '+date1);
+                            if (days == 0) {
+                                return true;
+                            } else {
+                                const day = date1.getDate(),
+                                    month = date1.getMonth();
+                                if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
                             }
                         }
                     });
@@ -194,7 +241,7 @@
         function lockDaysWithRange(date1, date2, pickedDates) {
             if (!date2) {
                 const d = date1.getDay(),
-                      day = date1.getDay(),
+                      day = date1.getDate(),
                       month = date1.getMonth();
                 if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
                    return true;
@@ -204,7 +251,7 @@
 
             while (date1.toJSDate() < date2.toJSDate()) {
                 const d = date1.getDay(),
-                      day = date1.getDay(),
+                      day = date1.getDate(),
                       month = date1.getMonth();
                 if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
                    return true;
