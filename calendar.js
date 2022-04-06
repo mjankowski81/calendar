@@ -175,7 +175,7 @@
             }, 100);
         }
 
-        function lockDaysWithRange(date1, date2, pickedDates) {
+        /* function lockDaysWithRange(date1, date2, pickedDates) {
             if (!date2) {
                 const d = date1.getDay();
                 return [6, 0].includes(d);
@@ -184,6 +184,32 @@
             while (date1.toJSDate() < date2.toJSDate()) {
                 const day = date1.getDay();
                 isWeekend = [6, 0].includes(day);
+                if (isWeekend) { return true; }
+                date1.add(1, 'day');
+            }
+
+            return false;
+        } */
+
+        function lockDaysWithRange(date1, date2, pickedDates) {
+            if (!date2) {
+                const d = date1.getDay(),
+                      day = date1.getDay(),
+                      month = date1.getDay();
+                if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
+                   return true;
+                }
+                return [6, 0].includes(d);
+            }
+
+            while (date1.toJSDate() < date2.toJSDate()) {
+                const d = date1.getDay(),
+                      day = date1.getDay(),
+                      month = date1.getDay();
+                if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
+                   return true;
+                }
+                isWeekend = [6, 0].includes(d);
                 if (isWeekend) { return true; }
                 date1.add(1, 'day');
             }
