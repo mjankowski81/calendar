@@ -29,7 +29,7 @@
             autoRefresh: false,
             showTooltip: true,
             singleMode: false,
-            disallowLockDaysInRange: false,
+            disallowLockDaysInRange: true,
             autoApply: true,
             numberOfMonths: 2,
             numberOfColumns: 2,
