@@ -195,7 +195,7 @@
             if (!date2) {
                 const d = date1.getDay(),
                       day = date1.getDay(),
-                      month = date1.getDay();
+                      month = date1.getMonth();
                 if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
                    return true;
                 }
@@ -205,7 +205,7 @@
             while (date1.toJSDate() < date2.toJSDate()) {
                 const d = date1.getDay(),
                       day = date1.getDay(),
-                      month = date1.getDay();
+                      month = date1.getMonth();
                 if ((month == 3) && (day == 16 || day == 17 || day == 18 || day == 19)) {
                    return true;
                 }
