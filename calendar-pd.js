@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // set locked date: 24*60*60*1000*2
     minDate: new Date().getTime() + 259200000,
     startDate: new Date().getTime() + 259200000,
-    //endDate: new Date().getTime() + 259200000,
+    endDate: new Date().getTime() + 259200000,
     minDays: defaultDays,
     maxDays: defaultDays,
     selectBackward: false,
