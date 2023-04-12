@@ -165,7 +165,8 @@ function updateWeekends(e) {
             const day = date1.getDate(),
               month = date1.getMonth(),
               year = date1.getFullYear();
-            if (
+            /*
+              if (
               month == 3 &&
               (day == 16 || day == 17 || day == 18 || day == 19)
             ) {
@@ -177,6 +178,7 @@ function updateWeekends(e) {
             if (year == 2023 && month == 0 && day <= 3) {
               return true;
             }
+            */
             return false;
           }
         }
@@ -255,15 +257,15 @@ function lockDaysWithRange(date1, date2, pickedDates) {
       day = date1.getDate(),
       month = date1.getMonth(),
       year = date1.getFullYear();
-    if (month == 3 && (day == 16 || day == 17 || day == 18 || day == 19)) {
-      return true;
-    }
-    if (year == 2022 && month == 11 && day >= 24) {
-      return true;
-    }
-    if (year == 2023 && month == 0 && day <= 3) {
-      return true;
-    }
+    //if (month == 3 && (day == 16 || day == 17 || day == 18 || day == 19)) {
+    //return true;
+    //}
+    //if (year == 2022 && month == 11 && day >= 24) {
+    //return true;
+    //}
+    //if (year == 2023 && month == 0 && day <= 3) {
+    //return true;
+    //}
     return [6, 0].includes(d);
   }
 
@@ -272,6 +274,7 @@ function lockDaysWithRange(date1, date2, pickedDates) {
       day = date1.getDate(),
       month = date1.getMonth(),
       year = date1.getFullYear();
+    /*
     if (month == 3 && (day == 16 || day == 17 || day == 18 || day == 19)) {
       return true;
     }
@@ -281,6 +284,7 @@ function lockDaysWithRange(date1, date2, pickedDates) {
     if (year == 2023 && month == 0 && day <= 3) {
       return true;
     }
+    */
     isWeekend = [6, 0].includes(d);
     if (isWeekend) {
       return true;
